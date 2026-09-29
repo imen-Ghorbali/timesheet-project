@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: timesheet-deployment
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: timesheet
+
+  template:
+    metadata:
+      labels:
+        app: timesheet
+
+    spec:
+      containers:
+        - name: timesheet
+          image: imenghorbali/timesheet-project:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8082
+
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/timesheet-devops-db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: ""
