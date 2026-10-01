@@ -1,0 +1,11 @@
+Feature: Verify Timesheet network exposure
+
+  Scenario: Timesheet service port should be open
+    When I launch an "nmap" attack with:
+      """
+      nmap -p 30082 192.168.49.2
+      """
+    Then the output should contain:
+      """
+      30082/tcp open
+      """
